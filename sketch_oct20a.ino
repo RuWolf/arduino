@@ -1,12 +1,19 @@
-void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+int analogPin = 3;     // номер порта к которому подключен потенциометр
+int val = 0;           // переменная для хранения считываемого значения
+ 
+void setup()
+{
+pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);              //  установка связи по serial
 }
-
-// the loop function runs over and over again forever
-void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(100);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(100);                       // wait for a second
+ 
+void loop()
+{
+  if (analogRead(analogPin) > 1000 && val < 10) {
+    Serial.println("done");
+    digitalWrite(LED_BUILTIN, HIGH);
+  }
+  val = analogRead(analogPin);     // считываем значение
+  delay(100);
+  digitalWrite(LED_BUILTIN, LOW);
 }
